@@ -27,6 +27,8 @@ using namespace std;
 // satisfy the course's style guidelines: 
 // https://web.engr.oregonstate.edu/~songyip/Teaching/CS16X/cpp_style_guideline.pdf)
 
+
+// prompts the user for psotion of money ball rack and error message if input is invalid 
 int ask (int mr) {
 	
 	do {
@@ -41,6 +43,7 @@ int ask (int mr) {
 	return 0;
 }
 
+// prompts the user for shooting ability and error message if input is invalid 
 int shootask (int sa) {
 	do {
 	cout << "Enter your shooting ability: " << endl;
@@ -53,6 +56,21 @@ int shootask (int sa) {
 
 	return 0;
 }
+
+//return 0 or 1 based off sa, 0 means missed, 1 means made
+int sim_one_shot (int sa) {
+	int outcome = -1;
+	int ran;
+	ran = rand() % 100; 
+	if (ran > sa) {
+		outcome = 0;
+	} else {
+		outcome = 1;
+	}
+	
+	// cout << "rand num: " << ran << endl;
+	return outcome;
+} 
 
 
 // Recall: This is the main() function. It's the entrypoint to your program
@@ -67,53 +85,92 @@ int main() {
 	// TODO: complete the main function, having it call other functions (and
 	// perhaps having those functions call other functions, and so on) to
 	// complete the program as described in the assignment description document
-// on Canvas.;
-do {
+	// on Canvas.;
+// do {
 
-int player1 = 0;
-int player2 = 0;
+// int player1 = 0;
+// int player2 = 0;
 
-// whie loop for two players, inside while loop if statement, if player was one, assign ppoint sto player one, inside other function a for loop in a for loop to run a 2d array.
+// // whie loop for two players, inside while loop if statement, if player was one, assign ppoint sto player one, inside other function a for loop in a for loop to run a 2d array.
 
-for (int i = 0; i < 2; i++)
+// for (int i = 0; i < 2; i++)
 int sa;
 int mr;
 
 	mr = ask(mr);
 	sa = shootask(sa);
 
-	cout << mr << endl;
-	cout << sa << endl;
+// 	cout << mr << endl;
+// 	cout << sa << endl;
 
 
 
 
 
-// keping track of shots and racks
-int rack = 1; 
-while (rack <= 7) {
-	int shots = 0;
-	while (shots < 5) {
-		if ()
+// // keping track of shots and racks
+// int rack = 1; 
+// while (rack <= 7) {
+// 	int shots = 0;
+// 	while (shots < 5) {
+// 		if ()
 
 
 
+// 	}
+
+
+	cout << "shoot cap: " << sa << endl;
+
+
+// }	
+	int scores[5][5];
+	// int row1[5];
+	int made = 1;
+	int missed = 0;
+	int mball = 2;
+
+	// assign values into your array
+	// i is row, j is col
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			// filling array w shot results
+			scores[i][j] = sim_one_shot (sa);
+
+			//checking for moneyball
+			if (j == 4 || mr == i + 1) {
+				scores[i][j] = scores[i][j] * 2;
+			}
+
+
+		}
+
+	}
+
+	// print out the array
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+	
+			cout << scores[i][j] << " ";
+		}
+		// cout << row1[i] << " ";
+		cout << endl;
 	}
 
 
 
 
-}	
-	int arr[5][5];
+
+	// if (sim_one_shot (sa) == 1) {
+	// 	cout << "made" << endl;
+	// } else {
+	// 	cout << "missed" << endl;
+	// }
+	
 
 	
 
 	// 2D array 5 rows 5 columns 
-	// Store in the array at print to the terminal
-	// I wasn't planning to but I guess you could
-	// go through the array that stores points and add them
-	// no
-}
+// }
 
 
 
