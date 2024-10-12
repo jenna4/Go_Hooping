@@ -88,12 +88,12 @@ int main() {
 	// on Canvas.;
 // do {
 
-// int player1 = 0;
 // int player2 = 0;
 
 // // whie loop for two players, inside while loop if statement, if player was one, assign ppoint sto player one, inside other function a for loop in a for loop to run a 2d array.
 
 // for (int i = 0; i < 2; i++)
+// if (plaer == 0)
 int sa;
 int mr;
 
@@ -119,12 +119,13 @@ int mr;
 // 	}
 
 
-	cout << "shoot cap: " << sa << endl;
+	// cout << "shoot cap: " << sa << endl;
 
 
 // }	
 	int scores[5][5];
 	// int row1[5];
+	int player1 = 0;
 	int made = 1;
 	int missed = 0;
 	int mball = 2;
@@ -148,13 +149,26 @@ int mr;
 
 	// print out the array
 	for (int i = 0; i < 5; i++) {
+			int rackpt = 0;
 		for (int j = 0; j < 5; j++) {
-	
-			cout << scores[i][j] << " ";
+			if(scores[i][j] == 0){
+				cout << "_ ";
+			} else if (scores[i][j] == 1) {
+				cout << "X ";
+			} else if (scores[i][j] == 2) {
+				cout << "M ";
+			}
+			rackpt += scores[i][j];
+			// cout << scores[i][j] << " ";
 		}
+		// cout << "|" when have points
 		// cout << row1[i] << " ";
-		cout << endl;
-	}
+		player1 += rackpt;
+		cout << "| Points: " << rackpt << endl;
+	}	
+
+	cout << "total player1: " << player1 << endl;
+
 
 
 
