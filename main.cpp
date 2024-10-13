@@ -72,6 +72,22 @@ int sim_one_shot (int sa) {
 	return outcome;
 } 
 
+int play_again (int play) {
+	do {
+	cout << "Play again? (1-yes, 0-no): ";
+	cin >> play;
+	if (play < 0 || play > 1) {
+		cout << "Error, invalid input" << endl;
+	} else 
+		if (play == 0) {
+			cout << "Thanks for playing!" << endl;
+		}
+		return play;
+	} while (play < 0 || play > 1);
+
+	return 0;
+}
+
 
 // Recall: This is the main() function. It's the entrypoint to your program
 // (i.e., it is where your program will both start and end).
@@ -79,60 +95,52 @@ int main() {
 	// This line seeds your PRNG. You don't need to call srand() anywhere else.
 	// After it's been called, you can then proceed to use the rand() function
 	// to generate pseudorandom numbers at any point in your program.
-	int play;
 	srand(time(nullptr));
 
 	// TODO: complete the main function, having it call other functions (and
 	// perhaps having those functions call other functions, and so on) to
 	// complete the program as described in the assignment description document
 	// on Canvas.;
-// do {
 
-// int player2 = 0;
+	int play;
 
-// // whie loop for two players, inside while loop if statement, if player was one, assign ppoint sto player one, inside other function a for loop in a for loop to run a 2d array.
+do {
+cout << "Welcome to the basketball shooting contest!" << endl;
+cout << "------------------------------------------------" << endl;
 
-// for (int i = 0; i < 2; i++)
-// if (plaer == 0)
+// storing the 2 different total scores 
+
+int player_scores[2] = {0,0};
+
+for (int player = 0; player < 2; player++) {
+cout << "Player " << player + 1 << ": " << endl;
+
 int sa;
 int mr;
 
 	mr = ask(mr);
 	sa = shootask(sa);
-
-// 	cout << mr << endl;
-// 	cout << sa << endl;
-
-
-
-
-
-// // keping track of shots and racks
-// int rack = 1; 
-// while (rack <= 7) {
-// 	int shots = 0;
-// 	while (shots < 5) {
-// 		if ()
-
-
-
-// 	}
-
-
-	// cout << "shoot cap: " << sa << endl;
-
-
-// }	
+	
 	int scores[5][5];
-	// int row1[5];
-	int player1 = 0;
+	int playerpts = 0;
 	int made = 1;
 	int missed = 0;
 	int mball = 2;
+	int sball = 3;
+	int srack; 
+
 
 	// assign values into your array
 	// i is row, j is col
+
 	for (int i = 0; i < 5; i++) {
+		// if (i == 2) {
+		// srack = sim_one_shot(sa);
+		// scores[2][0] = srack;
+		// if (srack == 1) {
+		// 	srack * 3;
+		// } 
+		// }
 		for (int j = 0; j < 5; j++) {
 			// filling array w shot results
 			scores[i][j] = sim_one_shot (sa);
@@ -142,7 +150,6 @@ int mr;
 				scores[i][j] = scores[i][j] * 2;
 			}
 
-
 		}
 
 	}
@@ -150,6 +157,7 @@ int mr;
 	// print out the array
 	for (int i = 0; i < 5; i++) {
 			int rackpt = 0;
+		cout << "Rack " << i + 1 << ": ";
 		for (int j = 0; j < 5; j++) {
 			if(scores[i][j] == 0){
 				cout << "_ ";
@@ -157,35 +165,39 @@ int mr;
 				cout << "X ";
 			} else if (scores[i][j] == 2) {
 				cout << "M ";
+			} else if (scores[2][j] == 3) {
+				cout << "S ";
 			}
 			rackpt += scores[i][j];
 			// cout << scores[i][j] << " ";
 		}
 		// cout << "|" when have points
 		// cout << row1[i] << " ";
-		player1 += rackpt;
+		playerpts += rackpt;
 		cout << "| Points: " << rackpt << endl;
 	}	
 
-	cout << "total player1: " << player1 << endl;
+	// saving total points to current player 
+	player_scores[player] = playerpts;
+
+	// printing current player's score
+	cout << "Total points for Player " << player + 1 << ": " << playerpts << endl;
+	cout << "------------------------------------------------" << endl;
 
 
+}
+	// Dtermine who won
+	if (player_scores[0] > player_scores[1]) {
+		cout << " Player 1 wins!" << endl;
+	} else if (player_scores[0] < player_scores[1]) {
+		cout << "Player 2 wins!" << endl;
+	} else {
+		cout << "Tie!" << endl;
+	}
 
-
-
-
-	// if (sim_one_shot (sa) == 1) {
-	// 	cout << "made" << endl;
-	// } else {
-	// 	cout << "missed" << endl;
-	// }
+	play = play_again(play);
+	
 	
 
-	
-
-	// 2D array 5 rows 5 columns 
-// }
-
-
-
+} while (play == 1);
 }
