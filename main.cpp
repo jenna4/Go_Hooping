@@ -72,6 +72,7 @@ int sim_one_shot (int sa) {
 	return outcome;
 } 
 
+
 int play_again (int play) {
 	do {
 	cout << "Play again? (1-yes, 0-no): ";
@@ -126,21 +127,15 @@ int mr;
 	int made = 1;
 	int missed = 0;
 	int mball = 2;
-	int sball = 3;
-	int srack; 
+	int sballpt = 3;
+	int sball1 = 0;
+	int sball2 = 0; 
 
 
 	// assign values into your array
 	// i is row, j is col
 
 	for (int i = 0; i < 5; i++) {
-		// if (i == 2) {
-		// srack = sim_one_shot(sa);
-		// scores[2][0] = srack;
-		// if (srack == 1) {
-		// 	srack * 3;
-		// } 
-		// }
 		for (int j = 0; j < 5; j++) {
 			// filling array w shot results
 			scores[i][j] = sim_one_shot (sa);
@@ -150,6 +145,13 @@ int mr;
 				scores[i][j] = scores[i][j] * 2;
 			}
 
+			if (i == 1 && j == 4) {
+				sball1 = sim_one_shot (sa) * 3;
+			}
+
+			if (i == 2 && j == 4) {
+				sball2 = sim_one_shot(sa) * 3;
+			}
 		}
 
 	}
@@ -165,9 +167,10 @@ int mr;
 				cout << "X ";
 			} else if (scores[i][j] == 2) {
 				cout << "M ";
-			} else if (scores[2][j] == 3) {
-				cout << "S ";
-			}
+			 } 
+			//  else if (scores[2][4] == 3) {
+			// 	cout << "S ";
+			// }
 			rackpt += scores[i][j];
 			// cout << scores[i][j] << " ";
 		}
@@ -175,9 +178,35 @@ int mr;
 		// cout << row1[i] << " ";
 		playerpts += rackpt;
 		cout << "| Points: " << rackpt << endl;
+
+			if (i == 1) {
+
+				cout << "Starry: ";
+				if (sball1 == 3) {
+					cout << "S ";
+				} else {
+					cout << "_ ";
+				} 
+				cout << "        | Points: " << sball1 << endl;
+
+			}
+
+			if (i == 2) {
+
+				cout << "Starry: ";
+				if (sball2 == 3) {
+					cout << "S ";
+				} else {
+					cout << "_ ";
+				} 
+				cout << "        | Points: " << sball2 << endl;
+
+			}
 	}	
 
+	
 	// saving total points to current player 
+	playerpts = playerpts + sball1 + sball2;
 	player_scores[player] = playerpts;
 
 	// printing current player's score
