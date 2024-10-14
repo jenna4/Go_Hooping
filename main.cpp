@@ -132,7 +132,7 @@ int mr;
 	int sball2 = 0; 
 
 
-	// assign values into your array
+	// assign values into array and setting the points
 	// i is row, j is col
 
 	for (int i = 0; i < 5; i++) {
@@ -168,19 +168,15 @@ int mr;
 			} else if (scores[i][j] == 2) {
 				cout << "M ";
 			 } 
-			//  else if (scores[2][4] == 3) {
-			// 	cout << "S ";
-			// }
+
 			rackpt += scores[i][j];
-			// cout << scores[i][j] << " ";
 		}
-		// cout << "|" when have points
-		// cout << row1[i] << " ";
+
+		// adding up the points made in one rack
 		playerpts += rackpt;
 		cout << "| Points: " << rackpt << endl;
 
 			if (i == 1) {
-
 				cout << "Starry: ";
 				if (sball1 == 3) {
 					cout << "S ";
@@ -188,11 +184,9 @@ int mr;
 					cout << "_ ";
 				} 
 				cout << "        | Points: " << sball1 << endl;
-
 			}
 
 			if (i == 2) {
-
 				cout << "Starry: ";
 				if (sball2 == 3) {
 					cout << "S ";
@@ -205,7 +199,7 @@ int mr;
 	}	
 
 	
-	// saving total points to current player 
+	// getting total points for current player 
 	playerpts = playerpts + sball1 + sball2;
 	player_scores[player] = playerpts;
 
