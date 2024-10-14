@@ -72,6 +72,92 @@ int sim_one_shot (int sa) {
 	return outcome;
 } 
 
+// assigning values and points
+void asvalues (int scores[5][5], int sa, int mr, int &sball1, int &sball2) {
+
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
+			// filling array w shot results
+			scores[i][j] = sim_one_shot (sa);
+
+			//checking for moneyball
+			if (j == 4 || mr == i + 1) {
+				scores[i][j] = scores[i][j] * 2;
+			}
+
+			if (i == 1 && j == 4) {
+				sball1 = sim_one_shot (sa) * 3;
+			}
+
+			if (i == 2 && j == 4) {
+				sball2 = sim_one_shot(sa) * 3;
+			}
+		}
+
+	}
+
+}
+
+void print_starry (int sball) {
+	
+	cout << "Starry: ";
+	if (sball == 3) {
+		cout << "S ";
+	} else {
+		cout << "_ ";
+	} 
+	cout << "        | Points: " << sball << endl;
+}
+
+void print_shots(int scores[5][5],int &playerpts, int sball1, int sball2) {
+	for (int i = 0; i < 5; i++) {
+			int rackpt = 0;
+		cout << "Rack " << i + 1 << ": ";
+		for (int j = 0; j < 5; j++) {
+			if(scores[i][j] == 0){
+				cout << "_ ";
+			} else if (scores[i][j] == 1) {
+				cout << "X ";
+			} else if (scores[i][j] == 2) {
+				cout << "M ";
+			} 
+
+			rackpt += scores[i][j];
+		}
+
+		// adding up the points made in one rack
+		playerpts += rackpt;
+		cout << "| Points: " << rackpt << endl;
+
+		if (i == 1) {
+			print_starry(sball1);
+		} 
+		if (i == 2) {
+			print_starry(sball2);
+		}
+	}
+}
+
+void total_current(int player_scores[], int player, int &playerpts, int sball1, int sball2) {
+	// getting total points for current player 
+	playerpts = playerpts + sball1 + sball2;
+	player_scores[player] = playerpts;
+	cout << "Total points for Player " << player + 1 << ": " << playerpts << endl;
+	cout << "------------------------------------------------" << endl;
+}
+
+
+void who_wins(int player_scores[2]) {
+	
+	if (player_scores[0] > player_scores[1]) {
+		cout << " Player 1 wins!" << endl;
+	} else if (player_scores[0] < player_scores[1]) {
+		cout << "Player 2 wins!" << endl;
+	} else {
+		cout << "Tie!" << endl;
+	}
+}
+
 
 int play_again (int play) {
 	do {
@@ -90,6 +176,7 @@ int play_again (int play) {
 }
 
 
+
 // Recall: This is the main() function. It's the entrypoint to your program
 // (i.e., it is where your program will both start and end).
 int main() {
@@ -103,7 +190,7 @@ int main() {
 	// complete the program as described in the assignment description document
 	// on Canvas.;
 
-	int play;
+int play;
 
 do {
 cout << "Welcome to the basketball shooting contest!" << endl;
@@ -131,95 +218,18 @@ int mr;
 	int sball1 = 0;
 	int sball2 = 0; 
 
+	asvalues(scores, sa, mr, sball1, sball2);
 
-	// assign values into array and setting the points
-	// i is row, j is col
-
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 5; j++) {
-			// filling array w shot results
-			scores[i][j] = sim_one_shot (sa);
-
-			//checking for moneyball
-			if (j == 4 || mr == i + 1) {
-				scores[i][j] = scores[i][j] * 2;
-			}
-
-			if (i == 1 && j == 4) {
-				sball1 = sim_one_shot (sa) * 3;
-			}
-
-			if (i == 2 && j == 4) {
-				sball2 = sim_one_shot(sa) * 3;
-			}
-		}
-
-	}
-
-	// print out the array
-	for (int i = 0; i < 5; i++) {
-			int rackpt = 0;
-		cout << "Rack " << i + 1 << ": ";
-		for (int j = 0; j < 5; j++) {
-			if(scores[i][j] == 0){
-				cout << "_ ";
-			} else if (scores[i][j] == 1) {
-				cout << "X ";
-			} else if (scores[i][j] == 2) {
-				cout << "M ";
-			 } 
-
-			rackpt += scores[i][j];
-		}
-
-		// adding up the points made in one rack
-		playerpts += rackpt;
-		cout << "| Points: " << rackpt << endl;
-
-			if (i == 1) {
-				cout << "Starry: ";
-				if (sball1 == 3) {
-					cout << "S ";
-				} else {
-					cout << "_ ";
-				} 
-				cout << "        | Points: " << sball1 << endl;
-			}
-
-			if (i == 2) {
-				cout << "Starry: ";
-				if (sball2 == 3) {
-					cout << "S ";
-				} else {
-					cout << "_ ";
-				} 
-				cout << "        | Points: " << sball2 << endl;
-
-			}
-	}	
-
+	print_shots(scores, playerpts, sball1, sball2);
 	
-	// getting total points for current player 
-	playerpts = playerpts + sball1 + sball2;
-	player_scores[player] = playerpts;
-
-	// printing current player's score
-	cout << "Total points for Player " << player + 1 << ": " << playerpts << endl;
-	cout << "------------------------------------------------" << endl;
-
+	total_current(player_scores, player, playerpts, sball1, sball2);
 
 }
 	// Dtermine who won
-	if (player_scores[0] > player_scores[1]) {
-		cout << " Player 1 wins!" << endl;
-	} else if (player_scores[0] < player_scores[1]) {
-		cout << "Player 2 wins!" << endl;
-	} else {
-		cout << "Tie!" << endl;
-	}
+	who_wins(player_scores);
+
 
 	play = play_again(play);
-	
 	
 
 } while (play == 1);
