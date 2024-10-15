@@ -150,7 +150,7 @@ void print_starry (int sball) {
 
 /*********************************************************************
 ** Function: print_shots
-** Description: calculates total points from on rack and prints out the scoreboard for current player and points made for one rack
+** Description: calculates total points from one rack and prints out the scoreboard for current player and points made for one rack
 ** Parameters: int scores[5][5],int &playerpts, int sball1, int sball2
 ** Pre-Conditions: a int 2d static array and three ints must exist
 ** Post-Conditions: prints each shot outcome and calculates and prints the total points in a row
@@ -294,7 +294,7 @@ cout << "Player " << player + 1 << ": " << endl;
 	total_current(player_scores, player, playerpts, sball1, sball2);
 
 }
-	/* Determinea who won*/
+	/* Determines who won*/
 	who_wins(player_scores);
 
 	/*asks the user if they want to play again*/
