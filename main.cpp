@@ -1,3 +1,12 @@
+/*********************************************************************
+** Program Filename: main.cpp
+** Author: Jenna Rivera
+** Date: 10/14/2024
+** Description: A C++ program that simulates a basketball shooting game for two players
+** Input: money rack position and shooting ability
+** Output: both player's outcomes, total points, and this winner
+*********************************************************************/
+
 // In some assignments, you will be provided with a bit of "skeleton code"
 // to get you started. However, this assignment is largely geared toward
 // getting you up to speed on the basics of C++ programming, so there's very
@@ -12,14 +21,6 @@
  * Program description: <Simulates a basket ball game between 2 players>
  */
 
-/*********************************************************************
-** Program Filename: main.cpp
-** Author: Jenna Rivera
-** Date: 10/14/2024
-** Description: A C++ program that simulates a basketball shooting game for two players
-** Input: money rack position and shooting ability
-** Output: both player's outcomes, total points, and this winner
-*********************************************************************/
 // Recall: this is the syntax for importing / including system-installed
 // header files in C++. The <iostream> header file gives you access to
 // input / output (I/O) tools, like std::cout, std::cin, and std::endl, so
