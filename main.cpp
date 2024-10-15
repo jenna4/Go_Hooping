@@ -9,9 +9,17 @@
 
 /*
  * Author: <Jenna Rivera>
- * Program description: <Simulates a basket ball game between 2 players.>
+ * Program description: <Simulates a basket ball game between 2 players>
  */
 
+/*********************************************************************
+** Program Filename: main.cpp
+** Author: Jenna Rivera
+** Date: 10/14/2024
+** Description: A C++ program that simulates a basketball shooting game for two players
+** Input: money rack position and shooting ability
+** Output: both player's outcomes, total points, and this winner
+*********************************************************************/
 // Recall: this is the syntax for importing / including system-installed
 // header files in C++. The <iostream> header file gives you access to
 // input / output (I/O) tools, like std::cout, std::cin, and std::endl, so
@@ -28,36 +36,54 @@ using namespace std;
 // https://web.engr.oregonstate.edu/~songyip/Teaching/CS16X/cpp_style_guideline.pdf)
 
 
-// prompts the user for psotion of money ball rack and error message if input is invalid 
+/*********************************************************************
+** Function: ask
+** Description: prompts the user for position of money ball rack. Error message is shown and user is reprompted if input is invalid 
+** Parameters: int mr
+** Pre-Conditions: an int must exist
+** Post-Conditions: if user input is invalid, an error message will show and user is reprompted. If not, program will continue
+*********************************************************************/ 
 int ask (int mr) {
 	
 	do {
 	cout << "Where do you want to put the money-ball rack? " << endl;
 	cin >> mr;
-	if (mr < 0 || mr > 5) {
+	if (mr <= 0 || mr > 5) {
 		cout << "Error, invalid input" << endl;
 	} else 
 		return mr;
-	} while (mr < 0 || mr > 5 );
+	} while (mr <= 0 || mr > 5 );
 
 	return 0;
 }
 
-// prompts the user for shooting ability and error message if input is invalid 
+/*********************************************************************
+** Function: shootask
+** Description: prompts the user for shooting ability. Error message is shown and user is reprompted if input is invalid 
+** Parameters: int sa
+** Pre-Conditions: an int must exist
+** Post-Conditions: if user input is invalid, an error message will show and user is reprompted. If not, program will continue
+*********************************************************************/ 
 int shootask (int sa) {
 	do {
 	cout << "Enter your shooting ability: " << endl;
 	cin >> sa;
-	if (sa < 0 || sa > 99) {
+	if (sa <= 0 || sa > 99) {
 		cout << "Error, invalid input" << endl;
 	} else 
 		return sa;
-	} while (sa < 0 || sa > 99);
+	} while (sa <= 0 || sa > 99);
 
 	return 0;
 }
 
-//return 0 or 1 based off sa, 0 means missed, 1 means made
+/*********************************************************************
+** Function: sim_one_shot
+** Description: simulates a shot with the random number generator
+** Parameters: int sa
+** Pre-Conditions: an int must exist
+** Post-Conditions: returns 0 or 1 based off shooting ability, 0 means missed, 1 means made
+*********************************************************************/ 
 int sim_one_shot (int sa) {
 	int outcome = -1;
 	int ran;
@@ -68,16 +94,21 @@ int sim_one_shot (int sa) {
 		outcome = 1;
 	}
 	
-	// cout << "rand num: " << ran << endl;
 	return outcome;
 } 
 
-// assigning values and points
+/*********************************************************************
+** Function: asvalues
+** Description: assigns values and points to array
+** Parameters: int scores[5][5], int sa, int mr, int &sball1, int &sball2
+** Pre-Conditions: a int 2d static array and four ints must exist
+** Post-Conditions: 2d array is filled if the ball missed or made and is turned to points
+*********************************************************************/ 
 void asvalues (int scores[5][5], int sa, int mr, int &sball1, int &sball2) {
 
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			// filling array w shot results
+			// filling array with shot results
 			scores[i][j] = sim_one_shot (sa);
 
 			//checking for moneyball
@@ -98,6 +129,13 @@ void asvalues (int scores[5][5], int sa, int mr, int &sball1, int &sball2) {
 
 }
 
+/*********************************************************************
+** Function: print_starry
+** Description: prints Starry ball shots and the points earned 
+** Parameters: int sball
+** Pre-Conditions: an int must exist
+** Post-Conditions: The starry ball shots and points earned from the Starry ball is printed
+*********************************************************************/ 
 void print_starry (int sball) {
 	
 	cout << "Starry: ";
@@ -109,6 +147,13 @@ void print_starry (int sball) {
 	cout << "        | Points: " << sball << endl;
 }
 
+/*********************************************************************
+** Function: print_shots
+** Description: calculates total points from on rack and prints out the scoreboard for current player and points made for one rack
+** Parameters: int scores[5][5],int &playerpts, int sball1, int sball2
+** Pre-Conditions: a int 2d static array and three ints must exist
+** Post-Conditions: prints each shot outcome and calculates and prints the total points in a row
+*********************************************************************/ 
 void print_shots(int scores[5][5],int &playerpts, int sball1, int sball2) {
 	for (int i = 0; i < 5; i++) {
 			int rackpt = 0;
@@ -122,10 +167,10 @@ void print_shots(int scores[5][5],int &playerpts, int sball1, int sball2) {
 				cout << "M ";
 			} 
 
+		// adding up the points made in one rack
 			rackpt += scores[i][j];
 		}
 
-		// adding up the points made in one rack
 		playerpts += rackpt;
 		cout << "| Points: " << rackpt << endl;
 
@@ -138,6 +183,13 @@ void print_shots(int scores[5][5],int &playerpts, int sball1, int sball2) {
 	}
 }
 
+/*********************************************************************
+** Function: total_current
+** Description: calculates total score for current player and prints to terminal
+** Parameters: int player_scores[], int player, int &playerpts, int sball1, int sball2
+** Pre-Conditions: a int array and four ints must exist
+** Post-Conditions: gets total score for current player and prints to terminal
+*********************************************************************/ 
 void total_current(int player_scores[], int player, int &playerpts, int sball1, int sball2) {
 	// getting total points for current player 
 	playerpts = playerpts + sball1 + sball2;
@@ -146,7 +198,13 @@ void total_current(int player_scores[], int player, int &playerpts, int sball1, 
 	cout << "------------------------------------------------" << endl;
 }
 
-
+/*********************************************************************
+** Function: who_wins
+** Description: compares player's scores. Whoever has the highest score wins, if the same score, it is a tie
+** Parameters: int player_scores[2]
+** Pre-Conditions: an int array must exist
+** Post-Conditions: prints winner or tie to the terminal
+*********************************************************************/ 
 void who_wins(int player_scores[2]) {
 	
 	if (player_scores[0] > player_scores[1]) {
@@ -158,7 +216,13 @@ void who_wins(int player_scores[2]) {
 	}
 }
 
-
+/*********************************************************************
+** Function: play_again
+** Description: asks the user if they would like to play again (1-yes, 0-no)
+** Parameters: int play
+** Pre-Conditions: an int must exist
+** Post-Conditions: the user can play again or quit the program
+*********************************************************************/ 
 int play_again (int play) {
 	do {
 	cout << "Play again? (1-yes, 0-no): ";
@@ -191,22 +255,23 @@ int main() {
 	// on Canvas.;
 
 int play;
-
+/* in a do while loop so user has a choice to play again*/
 do {
 cout << "Welcome to the basketball shooting contest!" << endl;
 cout << "------------------------------------------------" << endl;
 
-// storing the 2 different total scores 
-
+/*storing the 2 different total scores*/
 int player_scores[2] = {0,0};
 
+/* for loop for two players*/
 for (int player = 0; player < 2; player++) {
 cout << "Player " << player + 1 << ": " << endl;
-
-int sa;
-int mr;
-
+	int sa;
+	int mr;
+	
+	/*prompting for money rack*/
 	mr = ask(mr);
+	/*prompting for shooting ability*/
 	sa = shootask(sa);
 	
 	int scores[5][5];
@@ -218,17 +283,20 @@ int mr;
 	int sball1 = 0;
 	int sball2 = 0; 
 
+	/*assigns values and points to array*/
 	asvalues(scores, sa, mr, sball1, sball2);
-
+	
+	/*calculates total points from on rack and prints out the scoreboard for current player and points made for one rack*/
 	print_shots(scores, playerpts, sball1, sball2);
 	
+	/*calculates total score for current player and prints to terminal*/
 	total_current(player_scores, player, playerpts, sball1, sball2);
 
 }
-	// Dtermine who won
+	/* Determinea who won*/
 	who_wins(player_scores);
 
-
+	/*asks the user if they want to play again*/
 	play = play_again(play);
 	
 
