@@ -12,12 +12,10 @@
  * Program description: <Simulates a basket ball game between 2 players>
  */
 
-
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-
 
 /*********************************************************************
 ** Function: ask
@@ -221,8 +219,6 @@ int play_again (int play) {
 
 	return 0;
 }
-
-
 
 
 int main() {
